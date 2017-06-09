@@ -1,0 +1,48 @@
+{
+  "name": "webpackinitial",
+  "version": "1.0.0",
+  "description": "simple setup for webpack",
+  "main": "webpack.config.babel.js",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "webpack -p --env.prod",
+    "prebuild:dev": "rimraf dist",
+    "build:dev": "webpack --env.dev",
+    "dev": "webpack-dev-server --env.dev",
+    "lint": "eslint .",
+    "test": "karma start",
+    "validate": "npm-run-all --parallel lint build test",
+    "watch:test": "npm test -- --auto-watch --no-single-run"
+  },
+  "author": "bryan garzon",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-__coverage__": "^11.0.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.0.2",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0",
+    "ghooks": "^2.0.0",
+    "karma": "^1.7.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.3.0",
+    "karma-webpack": "^2.0.3",
+    "mocha": "^3.4.2",
+    "npm-run-all": "^4.0.2",
+    "opt-cli": "^1.5.1",
+    "rimraf": "^2.6.1",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "opt --in pre-commit --exec \"npm run validate\""
+    }
+  }
+}
