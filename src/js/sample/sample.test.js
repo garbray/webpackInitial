@@ -1,8 +1,12 @@
-// global describe
-const Controller = require('./index');
+import sample from './index';
 
-describe('controller', () => {
+describe('sample', () => {
   it('exists', () => {
-    expect(Controller).to.exist;
+    expect(sample).to.exist;
+  });
+
+  it('should be a function', () => {
+    console.log(typeof sample);
+    expect(sample).to.be.an('function');
   });
 });

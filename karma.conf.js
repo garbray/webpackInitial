@@ -20,7 +20,7 @@ module.exports = (config) => {
     coverageReporter: {
       check: {
         global: {
-          statements: 11,
+          statements: 10,
           branches: 0,
           functions: 0,
           lines: 11,

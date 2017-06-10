@@ -1,3 +1,6 @@
-export function sample() {
-  console.log('testing');
+function sample(text) {
+  console.log('text', text);
+  return text;
 }
+
+export default sample;
