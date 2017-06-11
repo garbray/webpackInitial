@@ -15,7 +15,7 @@ module.exports = (env) => {
   return {
     context: resolve('src/js'),
     entry: {
-      app: './main.js',
+      app: './bootstrap.js',
       vendor: ['./helpers'],
     },
     output: {

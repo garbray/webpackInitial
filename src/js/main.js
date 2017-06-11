@@ -1,17 +1,13 @@
-import { install as offlineInstall } from 'offline-plugin/runtime';
 import comp from './comp';
 import '../scss/main.scss';
+import { qs } from './helpers';
 
-function square(num) {
-  const squareNum = num * num;
-  console.log(`square num ${squareNum}`);
-  return squareNum;
+export default function main() {
+  function square(num) {
+    const squareNum = num * num;
+    console.log(`square num ${squareNum}`);
+    return squareNum;
+  }
+  comp('hello');
+  square(3);
 }
-
-// if we are on prod create the service worker
-if (process.env.NODE_ENV === 'production') {
-  offlineInstall();
-}
-comp('hello');
-
-square(3);
