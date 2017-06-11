@@ -1,0 +1,73 @@
+// File:           _variables.scss
+// Description:    Site-wide variables
+//
+//         ◡◠ ✥ ◠◡
+//
+//     Table of Contents:
+//
+//     1. Grid
+//     2. Colors
+//     3. Fonts
+
+// ---------------------------------------
+//     1. Grid
+// ---------------------------------------
+
+$small-screen: small-screen 0 640px;
+$medium-screen: medium-screen 641px 1023px;
+$large-screen: large-screen 1024px;
+
+$max-width: 1280px;
+$total-columns: 12;
+$gutter-width: 20px;
+$page-margin: 6%;
+
+/* ---------------------------------------
+    3. Colors
+-----------------------------------------*/
+
+$color-white: #fff;
+$color-black: #000;
+
+/* ---------------------------------------
+    4. Fonts
+-----------------------------------------*/
+
+$font-name-bold: sans-serif;
+$font-name-regular: sans-serif;
+$font-name-medium: sans-serif;
+$font-name-black: sans-serif;
+$font-awesome: "FontAwesome";
+$font-sans: Arial, sans-serif;
+$font-serif: Georgia, serif;
+
+$font-default: 16px, 18px, 20px;
+
+$line-height-double: 2.0;
+$line-height-normal: 1.5;
+$line-height-tight: 1.1;
+
+// Headers
+$responsive-h1: 40px, 54px, 72px;    //, 1.1;
+$responsive-h2: 30px, 36px, 42px;    //, 1.1;
+$responsive-h3: 24px, 28px, 32px;    //, 1.1;
+$responsive-h4: 20px, 22px, 24px;    //, 1.1;
+$responsive-h5: 16px, 18px, 20px;    //, 1.5;
+$responsive-h6: 16px, 16px, 18px;    //, 1.5;
+
+// Exceptions
+$responsive-h1-alt: 36px, 44px, 52px, 1.1;
+
+// Misc Sizes
+$font-small: 16px, 16px, 16px;       //, 1.5;
+$font-smallest: 13px, 13px, 13px;    //, 1.5;
+
+// Links & Buttons
+$link: 16px, 16px, 18px;             //, 1.5;
+$small-link: 16px, 16px, 16px;       //, 1.5;
+
+// Body Font
+$font-default: 16px, 18px, 20px;
+
+// Border Radii
+$input-border-radius:5px;

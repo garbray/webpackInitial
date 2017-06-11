@@ -19,8 +19,8 @@ module.exports = (env) => {
       vendor: ['./helpers'],
     },
     output: {
-      filename: ifProd('bundle.[name].[chunkhash].js', 'bundle.[name].js'),
-      path: resolve('dist/js'),
+      filename: ifProd('js/bundle.[name].[chunkhash].js', 'js/bundle.[name].js'),
+      path: resolve('dist'),
       pathinfo: ifNotProd(),
     },
     devtool: ifProd('source-map', 'eval'),
@@ -46,7 +46,7 @@ module.exports = (env) => {
         failOnError: false,
         testing: false,
       }),
-      new ExtractTextPlugin(ifProd('styles.[name].[chunkhash].css', 'styles.[name].css')),
+      new ExtractTextPlugin(ifProd('css/styles.[name].[chunkhash].css', 'css/styles.[name].css')),
       ifProd(new InlineManifestWebpackPlugin()),
       ifProd(new webpack.optimize.CommonsChunkPlugin({
         name: ['vendor', 'manifest'],

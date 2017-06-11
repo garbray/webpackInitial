@@ -1,0 +1,205 @@
+// File:           _mixins.scss
+// Description:    Helper mixin for commonly repeated patterns
+//
+//         ◡◠ ✥ ◠◡
+//
+//     Table of Contents:
+//
+//     1. Grid / Column
+//     2. Convert px to rem
+//     3. Clearfix
+//     4. Font Scalable
+//     5. at-breakpoint
+//     6. position
+//     7. Truncate
+//     8. Aspect Ratio
+
+// ---------------------------------------
+//     1. Grid / Column
+// ---------------------------------------
+
+@mixin span-columns($i, $total-columns, $gutter-width: 20px, $imporant:null) {
+  @if $i == $total-columns {
+    width: 100%$imporant;
+  } @else {
+    width: (100 / ($total-columns / $i) ) * 1%$imporant;
+  }
+
+  padding: 0 $gutter-width / 2;
+  position: relative;
+}
+
+@mixin push-column($i, $total-columns) {
+  margin-left: (100 / ($total-columns / $i) ) * 1%;
+}
+
+@mixin layout-handler($break-point, $span-columns, $push-columns:null) {
+  $gutter-width: gutter($break-point);
+  $total-columns: total-columns($break-point);
+
+  @if $span-columns {
+    @include span-columns($span-columns, $total-columns, $gutter-width);
+  }
+
+  @if $push-columns {
+    @include push-column($push-columns, $total-columns);
+  }
+}
+
+@mixin sub-layout-handler($break-point, $parent-columns, $child-columns, $push-columns: null) {
+  $gutter: gutter($break-point);
+  $total-columns: total-columns($break-point);
+  $cols: $total-columns;
+
+  $one-col: 100% / $cols;
+  $parent-size: ($one-col * $parent-columns);
+  $child-size: ($one-col * $child-columns);
+
+  padding: 0 $gutter / 2;
+  width: ($child-size / $parent-size) * 100%;
+
+  @if $push-columns {
+    $child-push: ($one-col * $push-columns);
+    margin-left: ($child-push / $parent-size) * 100%;
+  }
+}
+
+// ---------------------------------------
+//     2. Convert px to rem
+// ---------------------------------------
+
+@mixin pxtorem($parentpx, $px) {
+  // outputs the relative em for current font size
+  font-size: $px/$parentpx * 1em;
+}
+
+// ---------------------------------------
+//     3. Clearfix
+// ---------------------------------------
+
+@mixin clearfix {
+  zoom: 1;
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// ---------------------------------------
+//     4. Font Scalable
+// ---------------------------------------
+
+@mixin font-scalable($size, $line-height: false) {
+  font-size: nth($size, 1);
+
+  @if $line-height {
+    line-height: $line-height;
+  }
+
+  @if nth($size, 2) {
+    @include at-breakpoint($medium-screen) {
+      font-size: nth($size, 2);
+    }
+  }
+
+  @if nth($size, 3) {
+    @include at-breakpoint($large-screen) {
+      font-size: nth($size, 3);
+    }
+  }
+
+  @if nth($size, 4) {
+    @include at-breakpoint($extra-large-screen) {
+      font-size: nth($size, 4);
+    }
+  }
+}
+
+// ---------------------------------------
+//     5. at-breakpoint
+// ---------------------------------------
+
+@mixin at-breakpoint($viewport) {
+  @if length($viewport) == 2 {
+    @media all and (min-width: nth($viewport, 2)) {
+      @content;
+    }
+  } @else {
+    @media all and (min-width: nth($viewport, 2)) and (max-width: nth($viewport, 3)) {
+      @content;
+    }
+  }
+}
+
+// ---------------------------------------
+//    6. position
+// ---------------------------------------
+
+@mixin position($position, $top, $right, $bottom, $left) {
+  bottom: $bottom;
+  left: $left;
+  position: $position;
+  right: $right;
+  top: $top;
+}
+
+// ---------------------------------------
+//     7. Truncate
+// ---------------------------------------
+
+@mixin truncate() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ---------------------------------------
+//     8. Aspect Ratio
+// ---------------------------------------
+
+@mixin aspect-ratio($width, $height, $have-gutter: true) {
+  overflow: hidden;
+  position: relative;
+
+  &:before {
+    background-color: lightgrey;
+    content: "";
+    display: block;
+    padding-top: ($height / $width) * 100%;
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
+    @include position(absolute, 0, 0, 0, 0);
+
+    @if $have-gutter {
+      @include at-breakpoint($extra-large-screen) {
+        $gutter-width: gutter($extra-large-screen);
+        padding: 0 $gutter-width/2;
+      }
+
+      @include at-breakpoint($large-screen) {
+        $gutter-width: gutter($large-screen);
+        padding: 0 $gutter-width/2;
+      }
+
+      @include at-breakpoint($medium-screen) {
+        $gutter-width: gutter($medium-screen);
+        padding: 0 $gutter-width/2;
+      }
+
+      @include at-breakpoint($small-screen) {
+        $gutter-width: gutter($small-screen);
+        padding: 0 $gutter-width/2;
+      }
+    } @else {
+      padding: 0;
+    }
+  }
+}
