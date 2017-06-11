@@ -1,5 +1,5 @@
 function sample(text) {
-  console.log('text', text);
+  console.log('text', text); // eslint-disable-line
   return text;
 }
 

@@ -1,0 +1,5 @@
+# node_modules/.bin/surge token
+# rename as a deploy
+export SURGE_LOGIN=<USERNAME>
+export SURGE_TOKEN=<TOKEN>
+node_modules/.bin/surge --project dist --domain https://project-url-test-garbray.surge.sh
