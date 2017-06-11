@@ -1,9 +1,10 @@
 import { install as offlineInstall } from 'offline-plugin/runtime';
 import comp from './comp';
-import '../css/main.css';
+import '../scss/main.scss';
 
-function test(num) {
+function square(num) {
   const squareNum = num * num;
+  console.log(`square num ${squareNum}`);
   return squareNum;
 }
 
@@ -13,4 +14,4 @@ if (process.env.NODE_ENV === 'production') {
 }
 comp('hello');
 
-test(3);
+square(3);

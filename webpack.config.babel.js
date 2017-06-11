@@ -8,6 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const SassLintPlugin = require('sasslint-webpack-plugin');
 
 module.exports = (env) => {
   const { ifProd, ifNotProd } = getIfUtils(env);
@@ -25,17 +26,26 @@ module.exports = (env) => {
     devtool: ifProd('source-map', 'eval'),
     module: {
       rules: [
-        { test: /\.js$/, loader: 'babel-loader', query: { compact: false } },
+        { enforce: 'pre', test: /\.js$/, exclude: /node_modules/, loader: 'eslint-loader' },
+        { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/, query: { compact: false } },
         {
-          test: /\.css$/,
+          test: /\.scss$/,
           loader: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: ['css-loader'],
+            use: ['css-loader', 'sass-loader'],
           }) },
       ],
     },
     plugins: removeEmpty([
       new ProgressBarPlugin(),
+      new SassLintPlugin({
+        context: ['src/scss'],
+        glob: '**/*.scss',
+        ignorePlugins: ['extract-text-webpack-plugin', 'html-webpack-plugin'],
+        failOnWarning: false,
+        failOnError: false,
+        testing: false,
+      }),
       new ExtractTextPlugin(ifProd('styles.[name].[chunkhash].css', 'styles.[name].css')),
       ifProd(new InlineManifestWebpackPlugin()),
       ifProd(new webpack.optimize.CommonsChunkPlugin({
@@ -45,7 +55,7 @@ module.exports = (env) => {
         template: '../index.html',
         // inject: 'head',
       }),
-      new OfflinePlugin(),
+      ifProd(new OfflinePlugin()),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: ifProd('"production"', '"development"'),
