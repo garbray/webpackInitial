@@ -1,5 +1,4 @@
 // import sample from './sample';
-
 function comp(test) {
   console.log(test); // eslint-disable-line
   return test;

@@ -9,6 +9,7 @@ const OfflinePlugin = require('offline-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const SassLintPlugin = require('sasslint-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env) => {
   const { ifProd, ifNotProd } = getIfUtils(env);
@@ -28,12 +29,12 @@ module.exports = (env) => {
       rules: [
         { enforce: 'pre', test: /\.js$/, exclude: /node_modules/, loader: 'eslint-loader' },
         { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/, query: { compact: false } },
-        {
-          test: /\.scss$/,
+        { test: /\.scss$/,
           loader: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: ['css-loader', 'sass-loader'],
-          }) },
+          }),
+        },
       ],
     },
     plugins: removeEmpty([
@@ -53,8 +54,11 @@ module.exports = (env) => {
       })),
       new HtmlWebpackPlugin({
         template: '../index.html',
-        // inject: 'head',
       }),
+      new CopyWebpackPlugin([
+        { from: '../img', to: 'img' },
+        { from: '../fonts', to: 'fonts' },
+      ], { ignore: ['.DS_Store'] }),
       ifProd(new OfflinePlugin()),
       new webpack.DefinePlugin({
         'process.env': {
