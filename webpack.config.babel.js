@@ -54,6 +54,11 @@ module.exports = (env) => {
       })),
       new HtmlWebpackPlugin({
         template: 'index.html',
+        filename: 'index.html',
+      }),
+      new HtmlWebpackPlugin({
+        template: './templates/buttons.html',
+        filename: 'template/buttons.html',
       }),
       new CopyWebpackPlugin([
         { from: 'img', to: 'img' },
