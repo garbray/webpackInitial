@@ -14,10 +14,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = (env) => {
   const { ifProd, ifNotProd } = getIfUtils(env);
   return {
-    context: resolve('src/js'),
+    context: resolve('src'),
     entry: {
-      app: './bootstrap.js',
-      vendor: ['./helpers'],
+      app: './js/bootstrap.js',
+      vendor: ['./js/helpers'],
     },
     output: {
       filename: ifProd('js/bundle.[name].[chunkhash].js', 'js/bundle.[name].js'),
@@ -53,11 +53,11 @@ module.exports = (env) => {
         name: ['vendor', 'manifest'],
       })),
       new HtmlWebpackPlugin({
-        template: '../index.html',
+        template: 'index.html',
       }),
       new CopyWebpackPlugin([
-        { from: '../img', to: 'img' },
-        { from: '../fonts', to: 'fonts' },
+        { from: 'img', to: 'img' },
+        { from: 'fonts', to: 'fonts' },
       ], { ignore: ['.DS_Store'] }),
       ifProd(new OfflinePlugin()),
       new webpack.DefinePlugin({
