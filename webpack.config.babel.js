@@ -10,6 +10,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const SassLintPlugin = require('sasslint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const InjectManifest = require('./webpackplugins/InjectManifest');
 
 module.exports = (env) => {
   const { ifProd, ifNotProd } = getIfUtils(env);
@@ -35,6 +36,9 @@ module.exports = (env) => {
             use: ['css-loader', 'sass-loader'],
           }),
         },
+        { test: /\.html$/, loader: 'handlebars-loader' },
+        { test: /\.jpg$/, use: ['file-loader'] },
+        { test: /\.png$/, use: ['url-loader?mimetype=image/png'] },
       ],
     },
     plugins: removeEmpty([
@@ -52,6 +56,7 @@ module.exports = (env) => {
       ifProd(new webpack.optimize.CommonsChunkPlugin({
         name: ['vendor', 'manifest'],
       })),
+      ifProd(new InjectManifest()),
       new HtmlWebpackPlugin({
         template: 'index.html',
         filename: 'index.html',
