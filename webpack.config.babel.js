@@ -37,8 +37,6 @@ module.exports = (env) => {
           }),
         },
         { test: /\.html$/, loader: 'handlebars-loader' },
-        { test: /\.jpg$/, use: ['file-loader'] },
-        { test: /\.png$/, use: ['url-loader?mimetype=image/png'] },
       ],
     },
     plugins: removeEmpty([
