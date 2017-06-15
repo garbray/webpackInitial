@@ -16,7 +16,7 @@ module.exports = (config) => {
     },
     webpack: webpackConfig,
     webpackMiddleware: { noInfo: true },
-    reporters: ['progress', 'coverage'],
+    reporters: ['mocha', 'progress', 'coverage'],
     coverageReporter: {
       check: {
         global: {
