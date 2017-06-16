@@ -36,6 +36,7 @@ module.exports = (env) => {
             use: ['css-loader', 'sass-loader'],
           }),
         },
+        { test: /\.(woff|woff2|eot|ttf|svg)$/, use: { loader: 'url-loader', options: { limit: 1000, name: '/fonts/[name].[ext]' } } },
         { test: /\.html$/, loader: 'handlebars-loader' },
       ],
     },
